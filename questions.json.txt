@@ -1,0 +1,110 @@
+{
+  "verbal": {
+    "analogies": [
+      {
+        "question": "אשפה : לירות",
+        "options": [
+          { "answer": "קלמר : לכתוב", "isCorrect": true },
+          { "answer": "צידנית : לאכול", "isCorrect": false },
+          { "answer": "אכסניה : להתאכסן", "isCorrect": false },
+          { "answer": "סדין : לישון", "isCorrect": false }
+        ],
+        "explanation": "שאלה של אנלוגיות מציגה שני צמדים של מילים, ויש למצוא את הקשר הדומה ביניהם."
+      },
+      {
+        "question": "נהר : מים",
+        "options": [
+          { "answer": "רוח : ענן", "isCorrect": true },
+          { "answer": "עץ : גזע", "isCorrect": false },
+          { "answer": "אדם : גוף", "isCorrect": false },
+          { "answer": "ים : חוף", "isCorrect": false }
+        ],
+        "explanation": "הקשר בין נהר למים דומה לקשר בין רוח לענן."
+      }
+    ],
+    "synonyms": [
+      {
+        "question": "מהו המילה הקרובה ביותר ל-'מהות'?",
+        "options": [
+          { "answer": "מהותי", "isCorrect": true },
+          { "answer": "פשטות", "isCorrect": false },
+          { "answer": "חומר", "isCorrect": false },
+          { "answer": "הסבר", "isCorrect": false }
+        ],
+        "explanation": "המילה 'מהות' מתייחסת לאופי המרכזי של משהו."
+      }
+    ]
+  },
+  "quantitative": {
+    "math": [
+      {
+        "question": "מהו התוצאה של 5 + 3?",
+        "options": [
+          { "answer": "7", "isCorrect": false },
+          { "answer": "8", "isCorrect": true },
+          { "answer": "9", "isCorrect": false },
+          { "answer": "10", "isCorrect": false }
+        ],
+        "explanation": "תוצאה של חיבור בין שני המספרים."
+      },
+      {
+        "question": "מהי תוצאה של 12 ÷ 4?",
+        "options": [
+          { "answer": "2", "isCorrect": true },
+          { "answer": "3", "isCorrect": false },
+          { "answer": "4", "isCorrect": false },
+          { "answer": "6", "isCorrect": false }
+        ],
+        "explanation": "12 מחולק ב-4 נותן תוצאה של 3."
+      }
+    ],
+    "geometry": [
+      {
+        "question": "מהו היקף מעגל עם רדיוס של 7 ס"מ? (הנח π = 3.14)",
+        "options": [
+          { "answer": "43.96 ס"מ", "isCorrect": true },
+          { "answer": "44.96 ס"מ", "isCorrect": false },
+          { "answer": "42.96 ס"מ", "isCorrect": false },
+          { "answer": "41.96 ס"מ", "isCorrect": false }
+        ],
+        "explanation": "היקף מעגל מחושב על פי הנוסחה: 2 * π * רדיוס. 2 * 3.14 * 7 = 43.96."
+      }
+    ]
+  },
+  "english": {
+    "vocabulary": [
+      {
+        "question": "מהו הפירוש של המילה 'elaborate'?",
+        "options": [
+          { "answer": "פשוט", "isCorrect": false },
+          { "answer": "להסביר בפרוטרוט", "isCorrect": true },
+          { "answer": "לכנס", "isCorrect": false },
+          { "answer": "לזרום", "isCorrect": false }
+        ],
+        "explanation": "'Elaborate' משמעה להסביר משהו בצורה מפורטת."
+      },
+      {
+        "question": "מהו הפירוש של המילה 'benevolent'?",
+        "options": [
+          { "answer": "מנוכר", "isCorrect": false },
+          { "answer": "נדיב", "isCorrect": true },
+          { "answer": "עוין", "isCorrect": false },
+          { "answer": "מסתגר", "isCorrect": false }
+        ],
+        "explanation": "'Benevolent' מתאר אדם טוב לב, נדיב, שרוצה לעזור לאחרים."
+      }
+    ],
+    "readingComprehension": [
+      {
+        "question": "מהו עיקר הרעיון במאמר הבא?",
+        "options": [
+          { "answer": "המאמר עוסק בהסבר על טכנולוגיות חדשות", "isCorrect": true },
+          { "answer": "המאמר עוסק בנושאים חברתיים", "isCorrect": false },
+          { "answer": "המאמר עוסק במאבק פוליטי", "isCorrect": false },
+          { "answer": "המאמר עוסק בטיולים בעולם", "isCorrect": false }
+        ],
+        "explanation": "המאמר מסביר על טכנולוגיות חדשות ומגמות עתידיות בתחום המדע."
+      }
+    ]
+  }
+}
