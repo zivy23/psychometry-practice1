@@ -1,4 +1,43 @@
 // משתנים גלובליים
+let questionsData = {}; // מאגר השאלות
+let userPoints = 0; // ניקוד משתמש
+
+// פונקציה לטעינת השאלות מקובץ JSON
+async function loadQuestions() {
+    const response = await fetch('questions.json');
+    const data = await response.json();
+    questionsData = data;
+}
+
+// קריאה לפונקציה שתטען את השאלות כשדף ייטען
+window.onload = function() {
+    loadQuestions();
+};
+
+// פונקציה שמחזירה שאלה אקראית מתוך נושא מסוים
+function getRandomQuestion(topic, subTopic) {
+    const topicData = questionsData[topic];
+    if (!topicData) return null;
+
+    // בחר נושא ותת-נושא אקראי (במקרה הזה, אנלוגיות לדוגמה)
+    const subTopicData = topicData[subTopic];
+    if (!subTopicData) return null;
+
+    // בחר שאלה אקראית מתוך תת-הנושא
+    const randomIndex = Math.floor(Math.random() * subTopicData.length);
+    return subTopicData[randomIndex];
+}
+
+// דוגמה לשימוש בשאלה אקראית
+const randomQuestion = getRandomQuestion('verbal', 'analogies');
+if (randomQuestion) {
+    console.log("שאלה: " + randomQuestion.question);
+    randomQuestion.options.forEach(option => {
+        console.log(option.answer);
+    });
+}
+
+// משתנים גלובליים
 let practiceHistory = JSON.parse(localStorage.getItem("practiceHistory")) || [];
 let userPoints = 0;
 
