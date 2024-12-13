@@ -1,6 +1,6 @@
 // משתנים גלובליים
-let questionsData = {}; // מאגר השאלות
-let userPoints = 0; // ניקוד משתמש
+let questionsData = {};  // מאגר השאלות
+let userPoints = 0;  // ניקוד משתמש
 
 // פונקציה לטעינת השאלות מקובץ JSON
 async function loadQuestions() {
@@ -14,12 +14,11 @@ window.onload = function() {
     loadQuestions();
 };
 
-// פונקציה שמחזירה שאלה אקראית מתוך נושא מסוים
+// פונקציה שמחזירה שאלה אקראית מתוך נושא ותת-נושא
 function getRandomQuestion(topic, subTopic) {
     const topicData = questionsData[topic];
     if (!topicData) return null;
 
-    // בחר נושא ותת-נושא אקראי (במקרה הזה, אנלוגיות לדוגמה)
     const subTopicData = topicData[subTopic];
     if (!subTopicData) return null;
 
@@ -28,94 +27,75 @@ function getRandomQuestion(topic, subTopic) {
     return subTopicData[randomIndex];
 }
 
-// דוגמה לשימוש בשאלה אקראית
-const randomQuestion = getRandomQuestion('verbal', 'analogies');
-if (randomQuestion) {
-    console.log("שאלה: " + randomQuestion.question);
-    randomQuestion.options.forEach(option => {
-        console.log(option.answer);
-    });
-}
+// הצגת שאלה והאפשרויות
+function displayQuestion(question) {
+    const questionText = document.getElementById("questionText");
+    const optionsList = document.getElementById("optionsList");
 
-// משתנים גלובליים
-let practiceHistory = JSON.parse(localStorage.getItem("practiceHistory")) || [];
-let userPoints = 0;
+    questionText.textContent = question.question;
 
-// עדכון פרופיל משתמש
-document.getElementById("userPointsProfile").textContent = userPoints;
+    // ריקון האפשרויות הקודמות
+    optionsList.innerHTML = "";
 
-// שמירת היסטוריית תרגול
-function savePracticeToHistory(topic, subTopic, numQuestions, correctCount, incorrectCount, questions) {
-    const practiceEntry = {
-        date: new Date().toLocaleString(),
-        topic,
-        subTopic,
-        numQuestions,
-        correctCount,
-        incorrectCount,
-        questions,
-    };
-
-    practiceHistory.push(practiceEntry);
-    localStorage.setItem("practiceHistory", JSON.stringify(practiceHistory));
-    updatePracticeHistoryDisplay();
-}
-
-// הצגת היסטוריית תרגול
-function updatePracticeHistoryDisplay() {
-    const historyList = document.getElementById("practiceHistory");
-    historyList.innerHTML = "";
-
-    practiceHistory.forEach((entry, index) => {
+    // הצגת האפשרויות
+    question.options.forEach(option => {
         const listItem = document.createElement("li");
-        listItem.innerHTML = `
-            <strong>תאריך:</strong> ${entry.date} |
-            <strong>נושא:</strong> ${entry.topic} |
-            <strong>נכונות:</strong> ${entry.correctCount}/${entry.numQuestions}
-            <button onclick="viewPracticeDetails(${index})">צפה בפרטים</button>
-        `;
-        historyList.appendChild(listItem);
+        listItem.textContent = option.answer;
+        listItem.onclick = () => handleAnswer(option.isCorrect, question);
+        optionsList.appendChild(listItem);
     });
 }
 
-function viewPracticeDetails(index) {
-    const entry = practiceHistory[index];
-    alert(`פרטי תרגול:\n\nנושא: ${entry.topic}\nתאריך: ${entry.date}\nשאלות נכונות: ${entry.correctCount}`);
+// פונקציה לטיפול בתשובות
+function handleAnswer(isCorrect, question) {
+    if (isCorrect) {
+        userPoints += 2;  // להוסיף ניקוד על תשובה נכונה
+        alert("תשובה נכונה! הניקוד שלך: " + userPoints);
+    } else {
+        alert("תשובה שגויה.");
+    }
+
+    // עדכון הניקוד על הדף
+    document.getElementById("score").textContent = userPoints;
+
+    // שמירה להיסטוריית תרגולים
+    saveToHistory(question, isCorrect);
+
+    // אחרי תשובה, בחר שאלה חדשה
+    const nextQuestion = getRandomQuestion(
+        document.getElementById("topic").value, 
+        document.getElementById("subTopic").value
+    );
+    if (nextQuestion) {
+        displayQuestion(nextQuestion);
+    }
 }
 
-// סינון היסטוריה
-document.getElementById("filterForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const startDate = new Date(document.getElementById("startDate").value);
-    const endDate = new Date(document.getElementById("endDate").value);
-    const topic = document.getElementById("filterTopic").value;
-
-    const filteredHistory = practiceHistory.filter((entry) => {
-        const entryDate = new Date(entry.date);
-        if (startDate && entryDate < startDate) return false;
-        if (endDate && entryDate > endDate) return false;
-        if (topic && entry.topic !== topic) return false;
-        return true;
+// שמירת היסטוריית תרגולים ב-localStorage
+function saveToHistory(question, isCorrect) {
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    history.push({
+        question: question.question,
+        correct: isCorrect
     });
+    localStorage.setItem('history', JSON.stringify(history));
+}
 
-    displayFilteredHistory(filteredHistory);
+// הצגת היסטוריית תרגולים
+function showHistory() {
+    const history = JSON.parse(localStorage.getItem('history')) || [];
+    history.forEach(item => {
+        console.log(item.question, item.correct ? "נכון" : "שגוי");
+    });
+}
+
+// תחילת תרגול - הצגת שאלה לאחר שינוי נושא/תת-נושא
+document.getElementById("subTopic").addEventListener("change", function() {
+    const topic = document.getElementById("topic").value;
+    const subTopic = document.getElementById("subTopic").value;
+    
+    const question = getRandomQuestion(topic, subTopic);
+    if (question) {
+        displayQuestion(question);
+    }
 });
-
-function displayFilteredHistory(filteredHistory) {
-    const historyList = document.getElementById("practiceHistory");
-    historyList.innerHTML = "";
-
-    filteredHistory.forEach((entry) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
-            <strong>תאריך:</strong> ${entry.date} |
-            <strong>נושא:</strong> ${entry.topic} |
-            <strong>נכונות:</strong> ${entry.correctCount}/${entry.numQuestions}
-        `;
-        historyList.appendChild(listItem);
-    });
-}
-
-// טעינה ראשונית
-updatePracticeHistoryDisplay();
