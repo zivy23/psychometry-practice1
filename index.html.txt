@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אתר תרגול פסיכומטרי</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>אתר תרגול פסיכומטרי</h1>
+    </header>
+    
+    <main>
+        <!-- פרופיל והיסטוריית תרגול -->
+        <section id="profile">
+            <h2>פרופיל משתמש</h2>
+            <p>ניקוד נוכחי: <span id="userPointsProfile">0</span></p>
+            <h3>היסטוריית תרגולים</h3>
+            <ul id="practiceHistory"></ul>
+        </section>
+
+        <!-- סינון היסטוריית תרגול -->
+        <section id="filterSection">
+            <h3>סינון היסטוריית תרגול</h3>
+            <form id="filterForm">
+                <label>
+                    תאריך התחלה:
+                    <input type="date" id="startDate">
+                </label>
+                <label>
+                    תאריך סיום:
+                    <input type="date" id="endDate">
+                </label>
+                <label>
+                    נושא:
+                    <select id="filterTopic">
+                        <option value="">הכל</option>
+                        <option value="verbal">מילולי</option>
+                        <option value="quantitative">כמותי</option>
+                        <option value="english">אנגלית</option>
+                    </select>
+                </label>
+                <label>
+                    תת-נושא:
+                    <select id="filterSubTopic">
+                        <option value="">הכל</option>
+                    </select>
+                </label>
+                <button type="submit">סנן</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
